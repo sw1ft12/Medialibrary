@@ -26,4 +26,11 @@ CREATE VIEW Medialibrary.movie_genre AS
 CREATE VIEW Medialibrary.movie_cast AS
     SELECT ml.name, CONCAT(a.first_name, ' ', a.last_name)
     FROM Medialibrary."Movie Library" ml
-	JOIN Medialibrary.Cast c ON ml.movie_id = c.movie_id JOIN Medialibrary.Actors a ON c.actor_id = a.actor_id
+	JOIN Medialibrary.Cast c ON ml.movie_id = c.movie_id JOIN Medialibrary.Actors a ON c.actor_id = a.actor_id;
+
+/* Информация о каждом актёре - в скольких фильмах он снялся */
+
+CREATE VIEW Medialibrary.actor_movie_number AS
+    SELECT CONCAT(a.first_name, ' ', a.last_name) AS full_actor_name, COUNT(ml.name)
+    FROM Medialibrary."Movie Library" ml
+	JOIN Medialibrary.Cast c ON ml.movie_id = c.movie_id JOIN Medialibrary.Actors a ON c.actor_id = a.actor_id GROUP BY full_actor_name;
